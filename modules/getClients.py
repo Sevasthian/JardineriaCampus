@@ -36,3 +36,14 @@ def getAllClientPaisRegionCiudad(pais, region=None , ciudad=None):
         ):
             clientZone.append(val)
     return clientZone
+
+import storage.empleado as emp
+
+def getAllEmpleados ():
+    empleadosName = list()
+    for val in emp.empleados:
+        empleadosName = dict({
+            "codigo_empleado": val.get('nombre_empleado'),
+            "puesto": val.get('nombre_empleado')
+        })
+        empleadosName.append(codigoName)
