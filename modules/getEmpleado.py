@@ -31,3 +31,13 @@ def getAllNombreDelPuestoApellidosEmailJefe():
         )
     return nombrePuestoApellidoEmail
 
+def getAllNombreApellidosPuestoNoRepVentas():
+    InfoNoRepVentas = list()
+    for val in em.empleados:
+        if val.get("puesto") != "Representante Ventas":
+            InfoNoRepVentas.append({
+                "Puesto":val.get("puesto"),
+                "Nombre":val.get("nombre"),
+                "Apellido": val.get("apellido1"),
+            })
+    return InfoNoRepVentas
