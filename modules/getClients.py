@@ -1,3 +1,4 @@
+from tabulate import tabulate
 import storage.cliente as cli
 
 def getAllClientesName():
@@ -23,7 +24,22 @@ def getAllClientCreditCiudad(limiteCredit, ciudad):
     clienteCredic = list()
     for val in cli.clientes:
         if(val.get('limite_credito') >= limiteCredit and val.get('ciudad') == ciudad):
-            clienteCredic.append(val)
+            clienteCredic.append({
+                "Codigo": val.get("codigo_cliente")
+                "Responsable":val.get("nombre_cliente")
+                "Director":f''' {val.get("nombre_contacto")}{val.get("apellido_contacto")}
+                "Telefono":
+                "Fax":
+                "Direcciones":
+                "Origen":
+                "Codigo del asesor":
+                "Credito":
+
+
+
+
+
+            })
     return clienteCredic
 
 def getAllClientPaisRegionCiudad(pais, region=None , ciudad=None):
@@ -81,3 +97,20 @@ def getAllNombresSpain():
             nombresEspaña.append({"nombre":val.get("nombre_cliente"),
                                   "Pais":val.get("pais")})
     return nombresEspaña
+def menu():
+    print('''
+          reportes de los clientes
+            1. Obtener todos los clientes (codigo y nombre)
+            2. Obtener un cliente por el codigo (codigo y nombre)
+            3. Obtener toda la indormacion de un cliente segun su limite de credito y ciudad que pertenece (ejem: 3000.0 , San Francisco)
+          
+           ''')
+opcion = int(input("selecione una de las opciones: "))
+if(opcion == 1):
+    print(tabulate(getAllClientesName(), headers="keys", tablefmt="github"))
+elif(opcion == 2):
+    
+    print(tabulate(getAllClientesName(), headers="keys", tablefmt="github"))
+elif(opcion == 2):
+ 
+menu ()

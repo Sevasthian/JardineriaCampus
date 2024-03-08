@@ -24,3 +24,10 @@ def getAllCiudadTelefono(pais):
         })
     return CiudadTelefono
 #devuelve  un listado con el nombre, apellidos
+def menu():
+    print('''
+          reportes la oficina
+            1. Obtener los codigos de la oficina y la ciudad a la q pertenece (codigo_ofina y ciudad)
+            2. Obtener un pais  (codigo y nombre)        
+           ''')
+menu ()
