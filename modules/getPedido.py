@@ -1,4 +1,5 @@
 import storage.pedido as ped
+from tabulate import tabulate
 
 def getAllEstadosPedido():
     pedidoEstado = []
@@ -81,3 +82,38 @@ def getAllPedidosEntregadosEnero():
             if val.get("estado") == "Entregado" and start.month == 1:
                 EntregadosEnero.append(val)
     return EntregadosEnero
+
+def menu():
+    print(
+        '''
+        
+    ____                        __                   __        __                             ___     __          
+   / __ \___  ____  ____  _____/ /____  _____   ____/ /__     / /___  _____   ____  ___  ____/ (_)___/ /___  _____
+  / /_/ / _ \/ __ \/ __ \/ ___/ __/ _ \/ ___/  / __  / _ \   / / __ \/ ___/  / __ \/ _ \/ __  / / __  / __ \/ ___/
+ / _, _/  __/ /_/ / /_/ / /  / /_/  __(__  )  / /_/ /  __/  / / /_/ (__  )  / /_/ /  __/ /_/ / / /_/ / /_/ (__  ) 
+/_/ |_|\___/ .___/\____/_/   \__/\___/____/   \__,_/\___/  /_/\____/____/  / .___/\___/\__,_/_/\__,_/\____/____/  
+          /_/                                                             /_/                                     
+
+         1. Obtiene los codigos de los pedidos con su estado
+         2. Obtiene un listado con codigo del pedido de cliente las fechas que no han sido entregadas a tiempo
+         3. Obtiene un listado de lo anterio pero culla fecha de entrega alla sido dos dias antes de la fecha esperada
+         4. Obtiene un listado de todos los pedidos que fueron rechazados en 2009
+         5. Obtiene un listado de los pedidos que fueron entregados     
+         6. Cerrar el programa
+          
+          '''
+    )
+    opcion = int(input("Escribe que opcion deceas: "))
+    if (opcion == 1):
+        print(tabulate(getAllEstadosPedido()))
+    elif (opcion == 2):
+        print(tabulate(getAllPedidosEntregadosAtrasadosDeTiempo()))
+    elif (opcion == 3):
+        print(tabulate(getAllPedidosClienteFechaEsperadaFechaEntrega()))
+    elif (opcion == 4):
+        print(tabulate(getAllPedidosRechazados2009()))
+    elif (opcion == 5):
+        print(tabulate(getAllPedidosEntregadosEnero()))
+    elif (opcion == 6):
+        exit()
+    menu()
