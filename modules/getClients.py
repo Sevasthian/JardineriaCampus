@@ -93,8 +93,10 @@ def getAllNombresSpain():
             nombresEspaña.append({"nombre":val.get("nombre_cliente"),
                                   "Pais":val.get("pais")})
     return nombresEspaña
+
 def menu():
-    print('''
+    
+        print('''
           
     ____                        __              __        __                   ___            __           
    / __ \___  ____  ____  _____/ /____     ____/ /__     / /___  _____   _____/ (_)__  ____  / /____  _____
@@ -114,42 +116,43 @@ def menu():
             9. Obtiene todos los datos apartir de apellido del cliente (ejem: Wright)
             10.Obtiene todos los nombres de los clientes que esten en españa
             11.Cerrar el programa
+            
           
            ''')
-    opcion = int(input("selecione una de las opciones: "))
-    if(opcion == 1):
-        print(tabulate(getAllClientesName(), headers="keys", tablefmt="github"))
-    elif(opcion == 2):
-        codigo = int(input("Dame el codigo del cliente: "))
-        print(tabulate(getOneClientCodigo(codigo), headers="keys", tablefmt="github"))
-    elif(opcion == 3):
-       limiteDeCredito = float(input("Escribe un limite de credito: "))
-       ciudad = input("Escriba una ciudad que corresponda con ese credito: ")
-       data = getAllClientCreditCiudad(limiteDeCredito,ciudad)
-       print(tabulate(data ,headers = "Head", tablefmt ="gird"))
-    elif(opcion == 4):
-        pais = input("Escriba el pais: ")
-        Region = input("Escriba la region: ")
-        Ciudad = input("Escriba la ciudad: ")
-        print(tabulate(getAllClientPaisRegionCiudad(pais, Region, Ciudad),headers = 'firstrow', tablefmt = 'gird'))
-    elif(opcion == 5):
-        fax = input("Escriba el codigo fax: ")
-        print(tabulate(getAllClientsMismoFax(fax)))
-    elif(opcion == 6):
-        codigo = int(input("Escriba el codigo de un empleado de ventas: "))
-        print(tabulate(getAllClientsMismoCodigo_empleado_rep_ventas(codigo)))
-    elif(opcion == 7):
-        print(tabulate(getAllClientsNombrePostal()))
-    elif(opcion == 8):
-        print(tabulate(getAllClientsLineaDirecciones()))
-    elif(opcion == 9):
-        apellido = input("Escriba el apellido del cliente: ")
-        print(tabulate(getAllclientsApellidoContacto(apellido)))
-    elif(opcion == 10):
-        print(tabulate(getAllNombresSpain()))
-    elif(opcion == 11):
-        exit()
-    menu()
+        opcion = int(input("selecione una de las opciones: "))
+        if(opcion == 1):
+            print(tabulate(getAllClientesName(), headers="keys", tablefmt="github"))
+        elif(opcion == 2):
+            codigo = int(input("Dame el codigo del cliente: "))
+            print(tabulate(getOneClientCodigo(codigo), headers="keys", tablefmt="github"))
+        elif(opcion == 3):
+            limiteDeCredito = float(input("Escribe un limite de credito: "))
+            ciudad = input("Escriba una ciudad que corresponda con ese credito: ")
+            data = getAllClientCreditCiudad(limiteDeCredito,ciudad)
+            print(tabulate(data ,headers = "Head", tablefmt ="gird"))
+        elif(opcion == 4):
+            pais = input("Escriba el pais: ")
+            Region = input("Escriba la region: ")
+            Ciudad = input("Escriba la ciudad: ")
+            print(tabulate(getAllClientPaisRegionCiudad(pais, Region, Ciudad),headers = 'firstrow', tablefmt = 'gird'))
+        elif(opcion == 5):
+            fax = input("Escriba el codigo fax: ")
+            print(tabulate(getAllClientsMismoFax(fax)))
+        elif(opcion == 6):
+            codigo = int(input("Escriba el codigo de un empleado de ventas: "))
+            print(tabulate(getAllClientsMismoCodigo_empleado_rep_ventas(codigo)))
+        elif(opcion == 7):
+            print(tabulate(getAllClientsNombrePostal()))
+        elif(opcion == 8):
+            print(tabulate(getAllClientsLineaDirecciones()))
+        elif(opcion == 9):
+            apellido = input("Escriba el apellido del cliente: ")
+            print(tabulate(getAllclientsApellidoContacto(apellido)))
+        elif(opcion == 10):
+            print(tabulate(getAllNombresSpain()))
+        elif(opcion == 11):
+            exit()
+        
         
 
  
