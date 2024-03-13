@@ -1,3 +1,4 @@
+import json
 import modules.getClients as cliente
 import modules.getOficina as oficina
 import modules.getEmpleado as empleado
@@ -45,9 +46,9 @@ while True:
                              1. Cliente
                              2. Oficina
                              3. Empleado
-                            4. Pedidos
+                             4. Pedidos
                              5. Pagos
-                              6. Producto 
+                             6. Producto 
                              7. Cerrar el programa
  """)
         opcion = int(input("selecione una de las opciones: "))   
