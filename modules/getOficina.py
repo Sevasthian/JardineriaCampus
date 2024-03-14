@@ -37,7 +37,8 @@ def menu():
 
             1. Obtener los codigos de la oficina y la ciudad a la q pertenece (codigo_ofina y ciudad)
             2. Obtener los datos del pais que decea buscar (ejem: España)    
-            3. Salir del programa  
+            3. Guardas datos
+            4. Salir del programa
            ''')
     opcio = int(input("Escribe una opcion: "))
     if (opcio == 1):
@@ -46,5 +47,8 @@ def menu():
         pais = input("Escriba el pais que necesita: ")
         print(tabulate(getAllCiudadTelefono(pais)))
     elif(opcio == 3):
+    
+    elif(opcio == 4):
         exit()
+        
     menu ()
