@@ -1,5 +1,5 @@
 from tabulate import tabulate
-import storage.cliente as cli
+
 
 
 def getAllClientesName():

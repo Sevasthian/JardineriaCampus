@@ -1,8 +1,8 @@
 
 from tabulate import tabulate
 import requests
-import modules.postProducto as pstProducto
-import json
+import os
+
 
 
 #Devuelve un lisstado con todos los productos que pertenecen a la gama Ornamentales y que tienen más de 100 unidades en stock. El listado deberá estar ordenado por su precio de venta, mostrando en primer lugar los de mayor precio.
@@ -16,9 +16,9 @@ def getAllStocksPriceGama(gama, stock):
     for val in getAllData():
         if(val.get("gama") == gama and val.get("precio_venta") >= stock) :
             condiciones.append(val)
-        def price(val):
-            return val.get("precio_venta")
-    condiciones.sort(key = price)
+    def price(val):
+        return val.get("precio_venta")
+    condiciones.sort(key = price ,reverse = True)
     for i, val in enumerate(condiciones):
         if(condiciones[i].get("descripcion")):
             condiciones[0] = {
@@ -58,17 +58,7 @@ def menu():
             stock = int(input("Ingrse las unidades: "))
             print(tabulate(getAllStocksPriceGama(gama, stock)))
         elif(opcio == 2):
-            producto = {
-            "codigo_producto": input("Ingrese el codigo del producto"),
-            "nombre": input("Ingrese el nombre del producto: "),
-            "gama":gG.getAllNombre() [int(input("\t\n".join([f"{i}.{val}" for i in val enumerate(gG.getAllNombre())])),
-            "dimensiones": input("Ingrese las dimensiones del prducto: "),
-            "proveedor":input("Ingrese el nombre del proevedor: "),
-            "cantidad del stock":int(input("stock")),
-            "descripcion": (input("Ingrese la descripcion del producto: ")),
-            "precio_venta": int(input("Xd")),
-            "precio_proveedor":int(input("XD"))
-        }
+            
             pstProducto.postProducto(producto)
             print("Producto guardado")
         elif(opcio == 3):

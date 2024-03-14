@@ -47,7 +47,7 @@ def menu():
         pais = input("Escriba el pais que necesita: ")
         print(tabulate(getAllCiudadTelefono(pais)))
     elif(opcio == 3):
-    
+        exit()
     elif(opcio == 4):
         exit()
         

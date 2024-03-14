@@ -7,6 +7,7 @@ import modules.getPagos as pago
 import modules.getProducto as producto
 from tabulate import tabulate
 
+import os
 
 # def menu():
 #     print('''
@@ -31,8 +32,33 @@ import sys
 #             print(f'''{contador}.{file}''')
 # #             contador += 1
 # """ 
+
+def menuProducto():
+    print('''
+                  
+    ____  _                            _     __               __                             
+   / __ )(_)__  ____ _   _____  ____  (_)___/ /___     ____ _/ /  ____ ___  ___  ____  __  __
+  / __  / / _ \/ __ \ | / / _ \/ __ \/ / __  / __ \   / __ `/ /  / __ `__ \/ _ \/ __ \/ / / /
+ / /_/ / /  __/ / / / |/ /  __/ / / / / /_/ / /_/ /  / /_/ / /  / / / / / /  __/ / / / /_/ / 
+/_____/_/\___/_/ /_/|___/\___/_/ /_/_/\__,_/\____/ __\__,_/_/  /_/ /_/ /_/\___/_/ /_/\__,_/  
+  ____/ /__     ____  _________  ____/ /_  _______/ /_____  _____                            
+ / __  / _ \   / __ \/ ___/ __ \/ __  / / / / ___/ __/ __ \/ ___/                            
+/ /_/ /  __/  / /_/ / /  / /_/ / /_/ / /_/ / /__/ /_/ /_/ (__  )                             
+\__,_/\___/  / .___/_/   \____/\__,_/\__,_/\___/\__/\____/____/                              
+            /_/                                                                              
+            1. Reportes de los productos
+            2. 
+            3. Reguresar ala
+                  
+                  ''')
+    opcion = int(input("selecione una de las opciones: "))   
+    if(opcion == 1):
+            cliente.menu()
+    elif(opcion == 2):
+            oficina.menu()
 while True:
      if(__name__ == "__main__"):
+        os.system("clear")
         print("""
           
     
@@ -63,7 +89,7 @@ while True:
         elif(opcion == 5):
             pago.menu()
         elif(opcion == 6):
-            producto.menu()
+            menuProducto()
         elif(opcion == 7):
             break
 
