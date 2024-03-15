@@ -1,9 +1,14 @@
-import storage.pedido as ped
+
 from tabulate import tabulate
+import requests
+def getAllData():
+    peticion = requests.get("")
+    data = peticion.json()
+    return data
 
 def getAllEstadosPedido():
     pedidoEstado = []
-    for val in ped.pedido:
+    for val in getAllData():
         pedidoEstado.append({
             "codigo_pedido": val.get('codigo_pedido'),
             "estado": val.get('estado')
@@ -14,7 +19,7 @@ def getAllEstadosPedido():
 from datetime import datetime
 def getAllPedidosEntregadosAtrasadosDeTiempo():
     pedidosEntregado = []
-    for val in ped.pedido:
+    for val in getAllData():
         if val.get("estado") == "Entregado" and val.get("fecha_entrega") == None:
             val["fecha_entrega"] = val.get("fecha_esperada")
         if val.get("estado") == "Entregado":
@@ -45,7 +50,7 @@ def getAllPedidosEntregadosAtrasadosDeTiempo():
 
 def getAllPedidosClienteFechaEsperadaFechaEntrega():
     pedidosEntregado = []
-    for val in ped.pedido:
+    for val in getAllData():
         if val.get("estado") == "Entregado" and val.get("fecha_entrega") == None:
             val["fecha_entrega"] = val.get("fecha_esperada")
         if val.get("estado") == "Entregado":
@@ -66,7 +71,7 @@ def getAllPedidosClienteFechaEsperadaFechaEntrega():
 #Devuelve un listado de todos los pedidos que fueron rechazados en 2009
 def getAllPedidosRechazados2009():
     rechazados2009 = []
-    for val in ped.pedido:
+    for val in getAllData():
         FechaPedido = "/".join(val.get("fecha_pedido").split("-")[::-1])
         start = datetime.strptime(FechaPedido, "%d/%m/%Y")
         if val.get("estado") == "Rechazado" and start.year == 2009:
@@ -75,7 +80,7 @@ def getAllPedidosRechazados2009():
 
 def getAllPedidosEntregadosEnero():
     EntregadosEnero = list()
-    for val in ped.pedido:
+    for val in getAllData():
         if (val.get("estado") == "Entregado" and val.get("fecha_entrega") != None):
             FechaEntregada = "/".join(val.get("fecha_entrega").split("-")[::-1])
             start = datetime.strptime(FechaEntregada, "%d/%m/%Y")

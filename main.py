@@ -28,7 +28,10 @@ import sys
 #         if nombre.startswith("modulo"):
 #             modulo = getattr(objeto, "__name__", None)
 #         if(modulo != "modulo"):
-#             file = modulo.split("get")[- 1]
+#         
+# }
+
+#    file = modulo.split("get")[- 1]
 #             print(f'''{contador}.{file}''')
 # #             contador += 1
 # """ 

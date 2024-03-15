@@ -1,10 +1,16 @@
-import storage.pago as pag
+
 from tabulate import tabulate
 from datetime import datetime
+import requests
+def getAllData():
+    peticion = requests.post("")
+    data = peticion.json()
+    return data
+
 
 def getAll2008():
     PagosPaypal2008 = list()
-    for val in pag.pago:
+    for val in getAllData():
         FechaPagoo = "/".join(val.get("fecha_pago").split("-")[::-1])
         start = datetime.strptime(FechaPagoo, "%d/%m/%Y")
         if (val.get("forma_pago") == "Paypal") and start.day == 2008:

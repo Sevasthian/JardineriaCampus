@@ -1,10 +1,14 @@
-import storage.empleado as em
+import requests
 from tabulate import tabulate
 #devulve un listado con el nombre, apellidos y email de los empleados cuyo juefe tiene un codigo de jefe igual a7.
+def getAllNombre():
+    peticion = requests.get("")
+    data = peticion.json()
+    return data
 
 def getAllNombreApellidoEmailJefe(codigo):
     nombreApellidoEmail = []
-    for val in em.empleados:
+    for val in getAllNombre():
         if (val.get("codigo_jefe") == codigo):
             nombreApellidoEmail.append(
                 {
@@ -20,7 +24,7 @@ def getAllNombreApellidoEmailJefe(codigo):
 
 def getAllNombreDelPuestoApellidosEmailJefe():
     nombrePuestoApellidoEmail = []
-    for val in em.empleados:
+    for val in getAllNombre():
         if (val.get("codigo_jefe")) == None:
             nombrePuestoApellidoEmail.append(
             {
@@ -34,7 +38,7 @@ def getAllNombreDelPuestoApellidosEmailJefe():
 
 def getAllNombreApellidosPuestoNoRepVentas():
     InfoNoRepVentas = list()
-    for val in em.empleados:
+    for val in getAllNombre():
         if val.get("puesto") != "Representante Ventas":
             InfoNoRepVentas.append({
                 "Puesto":val.get("puesto"),

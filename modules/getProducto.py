@@ -21,7 +21,7 @@ def getAllStocksPriceGama(gama, stock):
     condiciones.sort(key = price ,reverse = True)
     for i, val in enumerate(condiciones):
         if(condiciones[i].get("descripcion")):
-            condiciones[0] = {
+            condiciones[i] = {
                 "codigo": val.get("codigo_producto"),
                 "venta" : val.get("precio_venta"),
                 "nombre" : val.get("nombre"),
@@ -32,13 +32,10 @@ def getAllStocksPriceGama(gama, stock):
                 "stock" : val.get("cantidad_en_stock"),
                 "base" : val.get("precio_provedor"),
             }
-            condiciones[i]["descripcion"] = f'''{condiciones[i]["descripcion"][:5]}...'''
-    return []
-    
-    
-  
+    return condiciones
 def menu():
     while True:
+        os.sustem("clear")
         print('''
           
     ____                        __                   __              _____      _            
@@ -58,9 +55,7 @@ def menu():
             stock = int(input("Ingrse las unidades: "))
             print(tabulate(getAllStocksPriceGama(gama, stock)))
         elif(opcio == 2):
-            
-            pstProducto.postProducto(producto)
-            print("Producto guardado")
+            break
         elif(opcio == 3):
             exit()
-        menu ()
+        
