@@ -4,26 +4,60 @@ from tabulate import tabulate
 import json
 import requests
 import modules.getGamas as gG
+import re
+import modules.getProducto as gP
 
 
 
 def postProducto():
-    producto = {
-        "codigo_producto":input("Ingrese el codigo del producto: "),
-        "nombre": input("Ingrese el nombre del producto: "),
-        "gama": gG.getAllNombre()[int(input("Selecione la gaa:\n"+"".join([f"\t{i}.{val}\n" for i, val in enumerate(gG.getAllNombre())])))],
-        "dimensiones": input("Ingrse la dimensiones del producto: "),
-        "proveedor": input("Ingrse el proveedor del producto: "),
-        "descripcion": input("Ingrse el descripcion del producto: "),
-        "cantidad_en_stock": int(input("Ingrse el cantidad en stock: ")),
-        "precio_venta": int(input("Ingrse el precio de ventas: ")),
-        "precio_proveedor": int(input("Ingrse el precio del proveedor: "))
-        }
-    #json-server storage/producto.json -b 5002
-    peticion = requests.post("http://172.16.100.145:5003", data=json.dumps(producto, indent = 4).encode(("UTF-8")))
-    res = peticion.json()
-    res["Mensaje"] = "Producto Guardado"
-    return [res]
+    producto = {}
+    while True:
+        try:
+            if(not producto.get("codigo_producto")):
+                codigo = input("Ingrese el codigo del producto: ")
+                if(re.match(r'^[A-Z]{2}-[0-9]{3}$',codigo) is not None):
+                    data = gP.getProductCodigo(codigo)
+                    if(data):
+                        print(tabulate(data, headers="keys", tablefmt="githud"))
+                        raise Exception("El codigo producto ya existe")
+                    else:
+                        producto["codigo_producto"] = codigo
+                else:
+                    raise Exception("El codigo producto no cumple con el estandar establecido")
+            if(not producto.get("nombre")):
+                nombre = input("Ingrese el nombre del producto: ")
+                if(re.match(r'⁽[A-Z][a-z]*\s*)+',nombre)is not None):
+                    producto["nombre"]= nombre
+                    break
+                else:
+                    raise Exception("El nombre del producto no cumple con el estandar establecido")
+        except Exception as error:
+            print(error) 
+
+    print(producto)
+     
+
+
+    
+    
+    
+
+# producto = {
+#     "codigo_producto":input("Ingrese el codigo del producto: "),
+#     "nombre": input("Ingrese el nombre del producto: "),
+#     "gama": gG.getAllNombre()[int(input("Selecione la gaa:\n"+"".join([f"\t{i}.{val}\n" for i, val in enumerate(gG.getAllNombre())])))],
+#     "dimensiones": input("Ingrse la dimensiones del producto: "),
+#     "proveedor": input("Ingrse el proveedor del producto: "),
+#     "descripcion": input("Ingrse el descripcion del producto: "),
+#     "cantidad_en_stock": int(input("Ingrse el cantidad en stock: ")),
+#     "precio_venta": int(input("Ingrse el precio de ventas: ")),
+#     "precio_proveedor": int(input("Ingrse el precio del proveedor: "))
+#     }
+#json-server storage/producto.json -b 5002
+# peticion = requests.post("http://172.16.100.145:5003", data=json.dumps(producto, indent = 4).encode(("UTF-8")))
+# res = peticion.json()
+# res["Mensaje"] = "Producto Guardado"
+# return [res]
 
   
 def menu():
