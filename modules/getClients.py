@@ -1,16 +1,19 @@
 from tabulate import tabulate
 import requests
-def getAllData():
-    peticion =  requests.get("")
+
+
+
+def getAllDataClientes():
+    peticion =  requests.post("http://192.168.1.8:5001")
     data = peticion.json
     return data
 
 
 def getAllClientesName():
     clienteName = list()
-    for val in getAllData():
+    for val in getAllDataClientes():
         codigoName = dict({
-            "codigo_cliente": val.get("codigo_cliente"),
+            "codigo_cliente": val.get('codigo_cliente'),
             "nombre_cliente": val.get('nombre_cliente')
         })
         clienteName.append(codigoName)
@@ -18,7 +21,7 @@ def getAllClientesName():
     return clienteName
     
 def getOneClientCodigo(codigo):
-    for val in getAllData():
+    for val in getAllDataClientes():
         if(val.get('codigo_cliente') == codigo):
             return[{ 
             "codigo_cliente": val.get('codigo_cliente'),
@@ -27,7 +30,7 @@ def getOneClientCodigo(codigo):
 
 def getAllClientCreditCiudad(limiteCredit, ciudad):
     clienteCredic = list()
-    for val in getAllData():
+    for val in getAllDataClientes():
         if (val.get('limite_credito') >= limiteCredit and val.get('ciudad') == ciudad):
             clienteCredic.append({
                 "Codigo": val.get("codigo_cliente"),
@@ -42,10 +45,9 @@ def getAllClientCreditCiudad(limiteCredit, ciudad):
             })
     return clienteCredic
 
-
 def getAllClientPaisRegionCiudad(pais, region=None , ciudad=None):
     clientZone = list()
-    for val in getAllData():
+    for val in getAllDataClientes():
         if(
         val.get('pais') == pais and 
         (val.get('region') == region or val.get('region') == None) or
@@ -57,49 +59,49 @@ def getAllClientPaisRegionCiudad(pais, region=None , ciudad=None):
 
 def getAllClientsMismoFax(Fax):
     ClientFax = list()
-    for val in getAllData():
+    for val in getAllDataClientes():
         if (val.get("fax") == Fax):
             ClientFax.append(val)
     return ClientFax
 
 def getAllClientsMismoCodigo_empleado_rep_ventas(Codigo):
     CodigoEmpleado = list()
-    for val in getAllData():
+    for val in getAllDataClientes():
         if val.get("codigo_empleado_rep_ventas") == Codigo:
             CodigoEmpleado.append(val)
     return CodigoEmpleado
 
 def getAllClientsNombrePostal():
     NombreYPostal = list()
-    for val in getAllData():
+    for val in getAllDataClientes():
         datos = dict({"Nombre_Cliente": val.get("nombre_cliente"), "Codigo_Postal": val.get("codigo_postal")})
         NombreYPostal.append(datos)
     return NombreYPostal
 
 def getAllClientsLineaDirecciones():
     direcciones = list()
-    for val in getAllData():
+    for val in getAllDataClientes():
         direccion1y2 = dict({"Nombre":val.get("nombre_cliente"), "Direccion_1":val.get("linea_direccion1"),"Direccion_2":val.get("linea_direccion2")})
         direcciones.append(direccion1y2)
     return direcciones
 
 def getAllclientsApellidoContacto(apellido):
     apellidos = list()
-    for val in getAllData():
+    for val in getAllDataClientes():
         if (val.get("apellido_contacto") == apellido):
             apellidos.append(val)
     return apellidos
 
 def getAllNombresSpain():
     nombresEspaña = list()
-    for val in getAllData():
+    for val in getAllDataClientes():
         if val.get("pais") == "Spain":
             nombresEspaña.append({"nombre":val.get("nombre_cliente"),
                                   "Pais":val.get("pais")})
     return nombresEspaña
 
 def menu():
-    
+    while True:
         print('''
           
     ____                        __              __        __                   ___            __           
@@ -156,6 +158,8 @@ def menu():
             print(tabulate(getAllNombresSpain()))
         elif(opcion == 11):
             exit()
+        elif(opcion == 12):
+            break
         
         
 

@@ -1,4 +1,5 @@
 import requests
+import json
 
 def gerAllGama():
     #joson-sever storage/gama_producto.json -b  5004

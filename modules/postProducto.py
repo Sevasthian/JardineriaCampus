@@ -1,4 +1,3 @@
-import json
 import os
 from tabulate import tabulate
 import json
@@ -28,12 +27,28 @@ def postProducto():
                 nombre = input("Ingrese el nombre del producto: ")
                 if(re.match(r'⁽[A-Z][a-z]*\s*)+',nombre)is not None):
                     producto["nombre"]= nombre
-                    break
                 else:
                     raise Exception("El nombre del producto no cumple con el estandar establecido")
-        except Exception as error:
-            print(error) 
+            if(not producto.get("gama")):
+                gama = input("Ingrese la gama del producto: ")
+                if(re.match(r'^(Ornamentales|Frutales|Aromáticas|Herramientas)$', gama)is not None):
+                    gama["gama"] = gama
+                else:
+                    raise Exception("Tiene que elegir entre Ornamentales, Frutales, Aromáticas y Herramientas")
+            if(not producto.get("dimenciones")):
+                dimenciones = input("Ingrese las dimenciones del producto: ")
+                if(re.match(r'^[0-9\s.,!?]+$', dimenciones)is not None):
+                    dimenciones["producto"] = dimenciones
+                else:
+                    raise Exception("Escriba bien ")
 
+        
+        except Exception as error:
+            print(error)
+        peticion = requests.post("", data=json.dumps(producto, indent=4).encode("UTF-8"))
+        res = peticion.json()
+        res["Mensaje"] = "Producto Guardado"
+        return [res] 
     print(producto)
      
 

@@ -5,6 +5,7 @@ import modules.getEmpleado as empleado
 import modules.getPedido as pedido
 import modules.getPagos as pago
 import modules.getProducto as producto
+import modules.postProducto as post
 from tabulate import tabulate
 import re
 
@@ -19,7 +20,6 @@ import os
 #           4. pedidos
 #           ''')
 # print(dir())
-import sys
 
 # # # print(pedido. getAllPedidosEntregadosEnero())
 # def menu():
@@ -51,15 +51,15 @@ def menuProducto():
 \__,_/\___/  / .___/_/   \____/\__,_/\__,_/\___/\__/\____/____/                              
             /_/                                                                              
             1. Reportes de los productos
-            2. 
+            2. Guardar Actualizar algun producto
             3. Reguresar ala
                   
                   ''')
     opcion = int(input("selecione una de las opciones: "))   
     if(opcion == 1):
-            cliente.menu()
+            producto.menu()
     elif(opcion == 2):
-            oficina.menu()
+            post.menu()
 
 if(__name__ == "__main__"):
     while True:
@@ -101,7 +101,10 @@ if(__name__ == "__main__"):
 
         except ValueError as error:
             print(error)
-            input("oprima algo: ")
+            input("Oprima enter para volver a cargar el programa")
+        except KeyboardInterrupt as error:
+              print(error)
+              input("Oprima alguna tecla para continuar con el programa")
              
         
 
