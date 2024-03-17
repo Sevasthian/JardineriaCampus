@@ -41,15 +41,15 @@ def postProducto():
                     dimenciones["producto"] = dimenciones
                 else:
                     raise Exception("Escriba bien ")
-
-        
+            print(producto)
         except Exception as error:
             print(error)
         peticion = requests.post("", data=json.dumps(producto, indent=4).encode("UTF-8"))
         res = peticion.json()
         res["Mensaje"] = "Producto Guardado"
         return [res] 
-    print(producto)
+
+        
      
 
 
@@ -98,11 +98,11 @@ def menu():
            ''')
         
         opcio = int(input("Escribe una opcion: "))
-        if (opcio == 1):
+        if (opcio == 0):
             break
-        elif(opcio == 2):
+        elif(opcio == 1):
             print(tabulate(postProducto()))
             input("Precione una tecla para continuar...")
-        elif(opcio == 3):
+        elif(opcio == 2):
             exit()
         

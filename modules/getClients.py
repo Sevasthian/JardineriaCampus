@@ -4,14 +4,23 @@ import requests
 
 
 def getAllDataClientes():
-    peticion =  requests.post("http://192.168.1.8:5001")
-    data = peticion.json
-    return data
+    try:
+        peticion =  requests.post("http://192.168.1.8:1000")
+        peticion.raise_for_status()
+        data = peticion.json()
+        return data
+    except requests.RequestException as e:
+        print("Error en la solicitud HTTP:", e)
+        return []
+    except ValueError as e:
+        print("Error al cargar JSON:", e)
+        return [] 
 
 
 def getAllClientesName():
     clienteName = list()
-    for val in getAllDataClientes():
+    data_clientes = getAllDataClientes()
+    for val in data_clientes:
         codigoName = dict({
             "codigo_cliente": val.get('codigo_cliente'),
             "nombre_cliente": val.get('nombre_cliente')

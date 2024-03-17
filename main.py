@@ -7,7 +7,7 @@ import modules.getPagos as pago
 import modules.getProducto as producto
 import modules.postProducto as post
 from tabulate import tabulate
-import re
+import modules.postEmpleado as PEmp
 
 import os
 
@@ -36,30 +36,83 @@ import os
 #             print(f'''{contador}.{file}''')
 # #             contador += 1
 # """ 
+def menuEmpleado():
+      os.system("clear")
+      while True:
+        print('''
 
+    ____  _                            _     __               __                                  
+   / __ )(_)__  ____ _   _____  ____  (_)___/ /___     ____ _/ /                                  
+  / __  / / _ \/ __ \ | / / _ \/ __ \/ / __  / __ \   / __ `/ /                                   
+ / /_/ / /  __/ / / / |/ /  __/ / / / / /_/ / /_/ /  / /_/ / /                                    
+/_____/_/\___/_/ /_/|___/\___/_/ /_/_/\__,_/\____/   \__,_/_/        __               __          
+   ____ ___  ___  ____  __/_/_   ____/ /__     ___  ____ ___  ____  / /__  ____ _____/ /___  _____
+  / __ `__ \/ _ \/ __ \/ / / /  / __  / _ \   / _ \/ __ `__ \/ __ \/ / _ \/ __ `/ __  / __ \/ ___/
+ / / / / / /  __/ / / / /_/ /  / /_/ /  __/  /  __/ / / / / / /_/ / /  __/ /_/ / /_/ / /_/ (__  ) 
+/_/ /_/ /_/\___/_/ /_/\__,_/   \__,_/\___/   \___/_/ /_/ /_/ .___/_/\___/\__,_/\__,_/\____/____/  
+                                                          /_/                                     
+        0. Atras
+              1.Reportes de los empleados
+              2.Guardar alguna empleado
+        3. Cerrar el programa
+
+''')
+        try:
+                opciones = int(input("Ingrese el numero de la opcion deceada: "))
+                if opciones == 0:
+                        break
+                elif opciones == 1:
+                        cliente.menu()
+                elif opciones == 2:
+                        PEmp.menu()
+                elif opcion == 3:
+                      exit()
+        except ValueError as error:
+              print("Oprima enter para continuar con el programa", error)
+        except KeyboardInterrupt as error:
+              print("Oprima enter para continuar con el programa", error)          
+def menuGamas():
+      print()
+def menuOficina():
+      print()
+def menuPagos():
+      print()
+def menuPedido():
+      print()
 def menuProducto():
-    print('''
-                  
-    ____  _                            _     __               __                             
-   / __ )(_)__  ____ _   _____  ____  (_)___/ /___     ____ _/ /  ____ ___  ___  ____  __  __
-  / __  / / _ \/ __ \ | / / _ \/ __ \/ / __  / __ \   / __ `/ /  / __ `__ \/ _ \/ __ \/ / / /
- / /_/ / /  __/ / / / |/ /  __/ / / / / /_/ / /_/ /  / /_/ / /  / / / / / /  __/ / / / /_/ / 
-/_____/_/\___/_/ /_/|___/\___/_/ /_/_/\__,_/\____/ __\__,_/_/  /_/ /_/ /_/\___/_/ /_/\__,_/  
-  ____/ /__     ____  _________  ____/ /_  _______/ /_____  _____                            
- / __  / _ \   / __ \/ ___/ __ \/ __  / / / / ___/ __/ __ \/ ___/                            
-/ /_/ /  __/  / /_/ / /  / /_/ / /_/ / /_/ / /__/ /_/ /_/ (__  )                             
-\__,_/\___/  / .___/_/   \____/\__,_/\__,_/\___/\__/\____/____/                              
-            /_/                                                                              
-            1. Reportes de los productos
-            2. Guardar Actualizar algun producto
-            3. Reguresar ala
-                  
-                  ''')
-    opcion = int(input("selecione una de las opciones: "))   
-    if(opcion == 1):
-            producto.menu()
-    elif(opcion == 2):
-            post.menu()
+    while True:
+        print('''
+                        
+          ____  _                            _     __               __                             
+         / __ )(_)__  ____ _   _____  ____  (_)___/ /___     ____ _/ /  ____ ___  ___  ____  __  __
+        / __  / / _ \/ __ \ | / / _ \/ __ \/ / __  / __ \   / __ `/ /  / __ `__ \/ _ \/ __ \/ / / /
+        / /_/ / /  __/ / / / |/ /  __/ / / / / /_/ / /_/ /  / /_/ / /  / / / / / /  __/ / / / /_/ / 
+        /_____/_/\___/_/ /_/|___/\___/_/ /_/_/\__,_/\____/ __\__,_/_/  /_/ /_/ /_/\___/_/ /_/\__,_/  
+        ____/ /__     ____  _________  ____/ /_  _______/ /_____  _____                            
+        / __  / _ \   / __ \/ ___/ __ \/ __  / / / / ___/ __/ __ \/ ___/                            
+        / /_/ /  __/  / /_/ / /  / /_/ / /_/ / /_/ / /__/ /_/ /_/ (__  )                             
+        \__,_/\___/  / .___/_/   \____/\__,_/\__,_/\___/\__/\____/____/                              
+                /_/                                                                              
+        0. Atras
+                1. Reportes de los productos
+                2. Guardar algun producto
+        3. Cerrar programa
+                        
+                        ''')
+        try:
+                opcion = int(input("selecione una de las opciones: "))   
+                if(opcion == 1):
+                        producto.menu()
+                elif(opcion == 2):
+                        post.menu()
+                elif(opcion == 0):
+                      break
+                elif(opcion == 3):
+                      exit()
+        except ValueError as error:
+              print("Oprima enter para continuar con el programa", error)
+        except KeyboardInterrupt as error:
+              print("Oprima enter para continuar con el programa", error)
 
 if(__name__ == "__main__"):
     while True:

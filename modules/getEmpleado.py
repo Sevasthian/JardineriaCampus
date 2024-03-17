@@ -59,7 +59,7 @@ def menu():
              
                 1. Obtiene un listado de caracteristicas del empleado (ejem: 7)
                 2. Obtiene los datos del jefe de la empresa
-                3. Obtiene un listado de las prsonas que no tiene un puesto de representante de ventas
+                3. Obtiene un listado de las personas que no tiene un puesto de representante de ventas
                 4. Cerrar el programa
 '''
     )
