@@ -49,8 +49,25 @@ def postProducto():
         res["Mensaje"] = "Producto Guardado"
         return [res] 
 
-        
-     
+def deleteProducto(id):
+    data = gP.getProductCodigo(id)
+    if(len(data)):
+        peticion = requests.delete(f"http://172.16.100.145:5000/productos/{id}")
+        if(peticion.status.code == 204):
+            data.append({"message": "producto eliminado correctamente"})
+            return {
+                "body" : data,
+                "status": peticion.status_code,
+            
+            }
+        else:
+            return {
+                "body" : [{
+                    "message": "prducto no encontrado",
+                    "id" : id
+                }],
+                "status" : 400,
+            }
 
 
     
@@ -94,15 +111,16 @@ def menu():
 
             0. Atras
             1. Guardar un producto nuevo
-            2. Cerrar programa
+            2. Eliminar producto
+            3. Cerrar programa
            ''')
         
         opcio = int(input("Escribe una opcion: "))
         if (opcio == 0):
             break
         elif(opcio == 1):
-            print(tabulate(postProducto()))
+            postProducto()
             input("Precione una tecla para continuar...")
         elif(opcio == 2):
-            exit()
+           print() 
         

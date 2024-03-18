@@ -1,11 +1,11 @@
 from tabulate import tabulate
 import requests
 
-
+#json-server storage/cliente.json -b 1000
 
 def getAllDataClientes():
     try:
-        peticion =  requests.post("http://192.168.1.8:1000")
+        peticion =  requests.post("http://172.16.100.145:5001")
         peticion.raise_for_status()
         data = peticion.json()
         return data
