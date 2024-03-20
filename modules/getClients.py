@@ -5,7 +5,7 @@ import requests
 
 def getAllDataClientes():
     try:
-        peticion =  requests.post("http://172.16.100.145:5001")
+        peticion =  requests.post("http://154.38.171.54:5001/cliente")
         peticion.raise_for_status()
         data = peticion.json()
         return data
@@ -21,11 +21,11 @@ def getAllClientesName():
     clienteName = list()
     data_clientes = getAllDataClientes()
     for val in data_clientes:
-        codigoName = dict({
-            "codigo_cliente": val.get('codigo_cliente'),
-            "nombre_cliente": val.get('nombre_cliente')
-        })
-        clienteName.append(codigoName)
+        data_clientes.append = {
+            "codigo_cliente": val('codigo_cliente'),
+            "nombre_cliente": val()('nombre_cliente')
+        }
+
 
     return clienteName
     

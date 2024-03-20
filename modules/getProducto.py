@@ -7,7 +7,7 @@ import os
 
 #Devuelve un lisstado con todos los productos que pertenecen a la gama Ornamentales y que tienen más de 100 unidades en stock. El listado deberá estar ordenado por su precio de venta, mostrando en primer lugar los de mayor precio.
 def getAllData():
-    peticion = requests.get("http://172.16.100.145:5003")
+    peticion = requests.get("http://154.38.171.54:5008/productos")
     data = peticion.json()
     return data
 
