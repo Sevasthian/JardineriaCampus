@@ -9,65 +9,108 @@ import modules.getProducto as gP
 
 
 def postProducto():
-    producto = {}
+    producto = dict()
     while True:
         try:
-            if(not producto.get("codigo_producto")):
+            if not producto.get("codigo_producto"):
                 codigo = input("Ingrese el codigo del producto: ")
-                if(re.match(r'^[A-Z]{2}-[0-9]{3}$',codigo) is not None):
-                    data = gP.getProductCodigo(codigo)
-                    if(data):
-                        print(tabulate(data, headers="keys", tablefmt="githud"))
-                        raise Exception("El codigo producto ya existe")
+                if re.match(r'^[A-Z]{2}-\d{3}$', codigo) is not None:
+                    if gP.getProductoCodigo(codigo):
+                        raise Exception("El codigo ingresado ya existe.")
                     else:
                         producto["codigo_producto"] = codigo
                 else:
-                    raise Exception("El codigo producto no cumple con el estandar establecido")
-            if(not producto.get("nombre")):
-                nombre = input("Ingrese el nombre del producto: ")
-                if(re.match(r'⁽[A-Z][a-z]*\s*)+',nombre)is not None):
-                    producto["nombre"]= nombre
+                    raise Exception(f"El codigo no cumple con el estandar establecido ( ejm: XX-111 ).")
+                
+            if not producto.get("nombre"):
+                nombre = input(f"Ingrese el nombre del producto: ")
+                if re.match(r'^[A-Z][a-zA-Z0-9\s]*$', nombre) is not None:
+                    producto["nombre"] = nombre
                 else:
-                    raise Exception("El nombre del producto no cumple con el estandar establecido")
-            if(not producto.get("gama")):
+                    raise Exception("Nombre no valido, recuerde que todas las palabras deben iniciar con mayúsculas.")
+                
+            if not producto.get("gama"):
                 gama = input("Ingrese la gama del producto: ")
-                if(re.match(r'^(Ornamentales|Frutales|Aromáticas|Herramientas)$', gama)is not None):
-                    gama["gama"] = gama
+                if re.match(r'^[A-Z][a-zA-Z0-9\s.]*$', nombre) is not None:
+                    asd = gG.getAllNombre(gama)
+                    if asd:
+                        producto["gama"] = gama
+                    else:
+                        raise Exception("Gamas validas: ( Herbaceas, Herramientas, Aromáticas, Frutales, Ornamentales )")
                 else:
-                    raise Exception("Tiene que elegir entre Ornamentales, Frutales, Aromáticas y Herramientas")
-            if(not producto.get("dimenciones")):
-                dimenciones = input("Ingrese las dimenciones del producto: ")
-                if(re.match(r'^[0-9\s.,!?]+$', dimenciones)is not None):
-                    dimenciones["producto"] = dimenciones
+                    raise Exception("Gamas validas: ( Herbaceas, Herramientas, Aromáticas, Frutales, Ornamentales )")
+                
+            if not producto.get("dimensiones"):
+                dimensiones = input("Ingrese las dimensiones del producto: ")
+                if re.match(r'^\d+-\d+$', dimensiones) is not None:
+                    producto["dimensiones"] = dimensiones
                 else:
-                    raise Exception("Escriba bien ")
-            print(producto)
+                    raise Exception("Dimensiones no válidas, la forma correcta es ( numero-numero ).")
+                
+            if not producto.get("proveedor"): 
+                proveedor = input("Ingrese el proveedor: ")
+                if re.match(r'^[A-Z][a-zA-Z0-9\s.]*$', proveedor) is not None:
+                    producto["proveedor"] = proveedor
+                else:
+                    raise Exception("Proveedor no valido, recuerde que la primera palabra debe iniciar con mayúsculas.")
+                
+            if not producto.get("descripcion"):
+                descripcion = input("Ingrese una descripción: ")
+                producto["descripcion"] = descripcion
+            
+            if not producto.get("cantidadEnStock"):
+                cantidad = input("Ingrese el precio de venta: ")
+                if re.match(r'^[0-9]+$', cantidad) is not None:
+                    cantidad = int(cantidad)
+                    producto["cantidadEnStock"] = cantidad
+                else:
+                    raise Exception("Cantidad no valida, asegurese de ingresar solo dígitos numéricos.")
+                
+            if not producto.get("precio_venta"):
+                PrecioVenta = input("Ingrese el precio de venta: ")
+                if re.match(r'^[0-9]+$', PrecioVenta) is not None:
+                    PrecioVenta = int(PrecioVenta)
+                    producto["precio_venta"] = PrecioVenta
+                else:
+                    raise Exception("Precio de venta no valido, asegurese de ingresar solo dígitos numéricos.")
+                
+            if not producto.get("precio_proveedor"):
+                PrecioProveedor = input("Ingrese el precio del proveedor: ")
+                if re.match(r'^[0-9]+$', PrecioProveedor) is not None:
+                    PrecioProveedor = int(PrecioProveedor)
+                    producto["precio_proveedor"] = PrecioProveedor
+                    break
+                else:
+                    raise Exception("Precio de proveedor no valido, asegurese de ingresar solo dígitos numéricos.")
+        
         except Exception as error:
-            print(error)
-        peticion = requests.post("", data=json.dumps(producto, indent=4).encode("UTF-8"))
-        res = peticion.json()
-        res["Mensaje"] = "Producto Guardado"
-        return [res] 
+            print(error)                     
+    
+    peticion = requests.post("http://154.38.171.54:5008/productos", data=json.dumps(producto, indent=4).encode("UTF-8"))
+    res = peticion.json()
+    res["Mensaje"] = "Producto Guardado"
+    return [res]
+
 
 def deleteProducto(id):
-    data = gP.getProductCodigo(id)
-    if(len(data)):
-        peticion = requests.delete(f"http://172.16.100.145:5000/productos/{id}")
-        if(peticion.status.code == 204):
-            data.append({"message": "producto eliminado correctamente"})
+    data = gP.DeleteProductoID(id)
+    if len(data):
+        peticion = requests.delete(f"http://154.38.171.54:5008/productos/{id}")
+        if peticion.status_code == 204:
+            data.append({"message":  "Producto eliminado correctamente"})
             return {
-                "body" : data,
+                "body": data,
                 "status": peticion.status_code,
-            
+            }     
+    else:
+        return {
+                "body":[{
+                    "Mensaje": "Producto no encontrado.",
+                    "id": id,
+            }],
+            "status": 400,
             }
-        else:
-            return {
-                "body" : [{
-                    "message": "prducto no encontrado",
-                    "id" : id
-                }],
-                "status" : 400,
-            }
+    print("Producto eliminado correctamente")
 
 
     
@@ -91,36 +134,4 @@ def deleteProducto(id):
 # res["Mensaje"] = "Producto Guardado"
 # return [res]
 
-  
-def menu():
-    while True:
-        os.system("clear")
-        print('''
-          
-
-    ___       __          _       _      __                         __      __                    __   
-   /   | ____/ /___ ___  (_)___  (_)____/ /__________ ______   ____/ /___ _/ /_____  _____   ____/ /__ 
-  / /| |/ __  / __ `__ \/ / __ \/ / ___/ __/ ___/ __ `/ ___/  / __  / __ `/ __/ __ \/ ___/  / __  / _ \
- / ___ / /_/ / / / / / / / / / / (__  ) /_/ /  / /_/ / /     / /_/ / /_/ / /_/ /_/ (__  )  / /_/ /  __/
-/_/  |_\__,_/_/ /_/ /_/_/_/ /_/_/____/\__/_/   \__,_/_/      \__,_/\__,_/\__/\____/____/   \__,_/\___/ 
-                          ____  _________  ____/ /_  _______/ /_____  _____                            
-                         / __ \/ ___/ __ \/ __  / / / / ___/ __/ __ \/ ___/                            
-                        / /_/ / /  / /_/ / /_/ / /_/ / /__/ /_/ /_/ (__  )                             
-                       / .___/_/   \____/\__,_/\__,_/\___/\__/\____/____/                              
-                      /_/                                                                              
-
-            0. Atras
-            1. Guardar un producto nuevo
-            2. Eliminar producto
-            3. Cerrar programa
-           ''')
-        
-        opcio = int(input("Escribe una opcion: "))
-        if (opcio == 0):
-            break
-        elif(opcio == 1):
-            postProducto()
-            input("Precione una tecla para continuar...")
-        elif(opcio == 2):
-           print() 
-        
+ 

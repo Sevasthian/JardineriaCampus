@@ -1,3 +1,4 @@
+
 import json
 import modules.getClients as cliente
 import modules.getOficina as oficina
@@ -15,8 +16,10 @@ import modules.postOficina as pstOfi
 import modules.postGamas as pstGam
 import modules.postCliente as pstCli
 import requests
-
+import modules.updateProducto as upPro
 import os
+import modules.updatePedido as upPed
+import modules.updateCliente as upCli
 
 # def menu():
 #     print('''
@@ -47,21 +50,42 @@ def menuCliente():
       while True:
             os.system("clear")
             print('''
-bienvenido al menu de clientes
+
+    
+
+    ____  _                            _     __               __                                 
+   / __ )(_)__  ____ _   _____  ____  (_)___/ /___     ____ _/ /  ____ ___  ___  ____  __  __    
+  / __  / / _ \/ __ \ | / / _ \/ __ \/ / __  / __ \   / __ `/ /  / __ `__ \/ _ \/ __ \/ / / /    
+ / /_/ / /  __/ / / / |/ /  __/ / / / / /_/ / /_/ /  / /_/ / /  / / / / / /  __/ / / / /_/ /     
+/_____/_/\___/_/ /_/|___/\___/_/ /_/_/\__,_/\____/   \__,_/_/  /_/ /_/ /_/\___/_/ /_/\__,_/      
+  ____/ /__     _____/ (_)__  ____  / /____  _____                                               
+ / __  / _ \   / ___/ / / _ \/ __ \/ __/ _ \/ ___/                                               
+/ /_/ /  __/  / /__/ / /  __/ / / / /_/  __(__  )                                                
+\__,_/\___/   \___/_/_/\___/_/ /_/\__/\___/____/                                                 
+                                                                                                 
+
                   0.Atras
                   1. Reportes de los clientes
                   2. Guardas algun cliente
-                  3. Cerrar el programa''')
+                  3. Actualizar algun cliente
+                  4. Eliminar algun cliente
+                  5. Cerrar el programa''')
             try:
-                      opciones = int(input("Ingrese el numero de la opcion deceada: "))
-                      if opciones == 0:
-                              break
-                      elif opciones == 1:
-                              cliente.menu()
-                      elif opciones == 2:
-                              pstCli.menu()
-                      elif opciones == 3:
-                            exit()
+                opciones = int(input("Ingrese el numero de la opcion deceada: "))
+                if opciones == 0:
+                        break
+                elif opciones == 1:
+                        cliente.menu()
+                elif opciones == 2:
+                        pstCli.menu()
+                elif opciones == 5:
+                        exit()
+                elif opciones == 4:
+                        pstCli.menu()
+                elif opciones == 3:
+                        print(tabulate(upCli.updateCliente(idCliente), headers="keys", tablefmt="github"))
+                idCliente = input("Ingrese el id del cliente: ")
+                
             except ValueError as error:
                     input("Oprima enter para continuar con el programa")
                     print(error)
@@ -113,7 +137,17 @@ def menuGamas():
             os.system("clear")
             print('''
 
-Bienvenidos al menu de gamas
+    ____  _                            _     __               __                                 
+   / __ )(_)__  ____ _   _____  ____  (_)___/ /___     ____ _/ /  ____ ___  ___  ____  __  __    
+  / __  / / _ \/ __ \ | / / _ \/ __ \/ / __  / __ \   / __ `/ /  / __ `__ \/ _ \/ __ \/ / / /    
+ / /_/ / /  __/ / / / |/ /  __/ / / / / /_/ / /_/ /  / /_/ / /  / / / / / /  __/ / / / /_/ /     
+/_____/_/\___/_/ /_/|___/\___/_/ /_/_/\__,_/\____/   \__,_/_/  /_/ /_/ /_/\___/_/ /_/\__,_/      
+  ____/ /__     ____ _____ _____ ___  ____ ______                                                
+ / __  / _ \   / __ `/ __ `/ __ `__ \/ __ `/ ___/                                                
+/ /_/ /  __/  / /_/ / /_/ / / / / / / /_/ (__  )                                                 
+\__,_/\___/   \__, /\__,_/_/ /_/ /_/\__,_/____/                                                  
+             /____/                                                                              
+
                   0. atras
                   1. Reportes de las gamas
                   2. Guardar alguna gama
@@ -139,7 +173,18 @@ def menuOficina():
       while True:
             os.system("clear")
             print('''
-bienvenidos al menu de oficina
+
+    ____  _                            _     __               __                                 
+   / __ )(_)__  ____ _   _____  ____  (_)___/ /___     ____ _/ /  ____ ___  ___  ____  __  __    
+  / __  / / _ \/ __ \ | / / _ \/ __ \/ / __  / __ \   / __ `/ /  / __ `__ \/ _ \/ __ \/ / / /    
+ / /_/ / /  __/ / / / |/ /  __/ / / / / /_/ / /_/ /  / /_/ / /  / / / / / /  __/ / / / /_/ /     
+/_____/_/\___/_/ /_/|___/\___/_/ /_/_/\__,_/\____/   \__,_/_/  /_/ /_/ /_/\___/_/ /_/\__,_/      
+  ____/ /__     ____  / __(_)____(_)___  ____ _                                                  
+ / __  / _ \   / __ \/ /_/ / ___/ / __ \/ __ `/                                                  
+/ /_/ /  __/  / /_/ / __/ / /__/ / / / / /_/ /                                                   
+\__,_/\___/   \____/_/ /_/\___/_/_/ /_/\__,_/                                                    
+                                                                                                 
+
                   0.Atras
                   1.Reportes de las gamas
                   2.Guardar alguna gama
@@ -165,7 +210,18 @@ def menuPagos():
       while True:
             os.system("clear")
             print('''
-      bienvenido al menu de pagos
+ 
+    ____  _                            _     __               __                                 
+   / __ )(_)__  ____ _   _____  ____  (_)___/ /___     ____ _/ /  ____ ___  ___  ____  __  __    
+  / __  / / _ \/ __ \ | / / _ \/ __ \/ / __  / __ \   / __ `/ /  / __ `__ \/ _ \/ __ \/ / / /    
+ / /_/ / /  __/ / / / |/ /  __/ / / / / /_/ / /_/ /  / /_/ / /  / / / / / /  __/ / / / /_/ /     
+/_____/_/\___/_/ /_/|___/\___/_/ /_/_/\__,_/\____/   \__,_/_/  /_/ /_/ /_/\___/_/ /_/\__,_/      
+  ____/ /__     ____  ____ _____ _____  _____                                                    
+ / __  / _ \   / __ \/ __ `/ __ `/ __ \/ ___/                                                    
+/ /_/ /  __/  / /_/ / /_/ / /_/ / /_/ (__  )                                                     
+\__,_/\___/  / .___/\__,_/\__, /\____/____/                                                      
+            /_/          /____/                                                                  
+
                   0. Atras
                   1.Reportes de los pagos
                   2.Guardas algun pago
@@ -191,22 +247,43 @@ def menuPedido():
       while True:
             os.system("clear")
             print(''''
-                  bienvenido al menu de pedidos
+                  
+   
+    ____  _                            _     __               __                                 
+   / __ )(_)__  ____ _   _____  ____  (_)___/ /___     ____ _/ /  ____ ___  ___  ____  __  __    
+  / __  / / _ \/ __ \ | / / _ \/ __ \/ / __  / __ \   / __ `/ /  / __ `__ \/ _ \/ __ \/ / / /    
+ / /_/ / /  __/ / / / |/ /  __/ / / / / /_/ / /_/ /  / /_/ / /  / / / / / /  __/ / / / /_/ /     
+/_____/_/\___/_/ /_/|___/\___/_/ /_/_/\__,_/\____/   \__,_/_/  /_/ /_/ /_/\___/_/ /_/\__,_/      
+       __                       ___     __                                                       
+  ____/ /__     ____  ___  ____/ (_)___/ /___  _____                                             
+ / __  / _ \   / __ \/ _ \/ __  / / __  / __ \/ ___/                                             
+/ /_/ /  __/  / /_/ /  __/ /_/ / / /_/ / /_/ (__  )                                              
+\__,_/\___/  / .___/\___/\__,_/_/\__,_/\____/____/                                               
+            /_/                                                                                  
+
                   }
                   0. Atras
-                  1.Reportes de los pedidos
-                  2.Guardar algun pedido
-                  3.Cerrar el programa''')
+                  1. Reportes de los pedidos
+                  2. Guardar algun pedido
+                  3. Actualizar un pedido
+                  4. Eliminar Pedido
+                  5. Cerrar el programa''')
             try:
-                      opciones = int(input("Ingrese el numero de la opcion deceada: "))
-                      if opciones == 0:
-                              break
-                      elif opciones == 1:
-                              pedido.menu()
-                      elif opciones == 2:
-                              PstPedi.menu()
-                      elif opciones == 3:
-                            exit()
+                opciones = int(input("Ingrese el numero de la opcion deceada: "))
+                if opciones == 0:
+                        break
+                elif opciones == 1:
+                        pedido.menu()
+                elif opciones == 2:
+                        PstPedi.menu()
+                elif opciones == 5:
+                        exit()
+                elif opciones == 4:
+                      PstPedi.menu()
+                elif opciones == 3:
+                        idEmpleado = input("Ingrese el id del Pedido: ")
+                        print(tabulate(upPed.updatePedido(idEmpleado), headers="keys", tablefmt="github"))
+
             except ValueError as error:
                     input("Oprima enter para continuar con el programa")
                     print(error)
@@ -217,33 +294,45 @@ def menuPedido():
 def menuProducto():
     while True:
         print('''
-                        
-          ____  _                            _     __               __                             
-         / __ )(_)__  ____ _   _____  ____  (_)___/ /___     ____ _/ /  ____ ___  ___  ____  __  __
-        / __  / / _ \/ __ \ | / / _ \/ __ \/ / __  / __ \   / __ `/ /  / __ `__ \/ _ \/ __ \/ / / /
-        / /_/ / /  __/ / / / |/ /  __/ / / / / /_/ / /_/ /  / /_/ / /  / / / / / /  __/ / / / /_/ / 
-        /_____/_/\___/_/ /_/|___/\___/_/ /_/_/\__,_/\____/ __\__,_/_/  /_/ /_/ /_/\___/_/ /_/\__,_/  
-        ____/ /__     ____  _________  ____/ /_  _______/ /_____  _____                            
-        / __  / _ \   / __ \/ ___/ __ \/ __  / / / / ___/ __/ __ \/ ___/                            
-        / /_/ /  __/  / /_/ / /  / /_/ / /_/ / /_/ / /__/ /_/ /_/ (__  )                             
-        \__,_/\___/  / .___/_/   \____/\__,_/\__,_/\___/\__/\____/____/                              
-                /_/                                                                              
+       
+    ____  _                            _     __                    __   
+   / __ )(_)__  ____ _   _____  ____  (_)___/ /___  _____   ____ _/ /   
+  / __  / / _ \/ __ \ | / / _ \/ __ \/ / __  / __ \/ ___/  / __ `/ /    
+ / /_/ / /  __/ / / / |/ /  __/ / / / / /_/ / /_/ (__  )  / /_/ / /     
+/_____/_/\___/_/ /_/|___/\___/_/ /_/_/\__,_/\____/____/   \__,_/_/      
+  ____/ /__     ____  _________  ____/ /_  _______/ /_____              
+ / __  / _ \   / __ \/ ___/ __ \/ __  / / / / ___/ __/ __ \             
+/ /_/ /  __/  / /_/ / /  / /_/ / /_/ / /_/ / /__/ /_/ /_/ /             
+\__,_/\___/  / .___/_/   \____/\__,_/\__,_/\___/\__/\____/              
+            /_/                                                         
+                       
         0. Atras
-                1. Reportes de los productos
-                2. Guardar algun producto
-        3. Cerrar programa
+        1. Reportes de los productos
+        2. Guardar algun producto
+        3. Actualizar un producto
+        4. Eliminar un producto
+        6. Cerrar programa
                         
                         ''')
         try:
+                
                 opcion = int(input("selecione una de las opciones: "))   
                 if(opcion == 1):
                         producto.menu()
                 elif(opcion == 2):
-                        postpro.menu()
+                        postpro.postProducto()
                 elif(opcion == 0):
                       break
-                elif(opcion == 3):
+                elif(opcion == 6):
                       exit()
+                elif(opcion == 3):
+                        print(tabulate(upPro.updateProducto(idProducto), headers="keys", tablefmt="github"))
+                elif(opcion == 4):
+                        print(tabulate(postpro.deleteProducto(idProducto), headers="keys", tablefmt="github"))
+                idProducto = input("Ingrese el id del producto: ")
+        
+
+                      
         except ValueError as error:
               input("Oprima enter para continuar con el programa")
               print(error)

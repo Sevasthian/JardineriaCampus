@@ -1,13 +1,13 @@
 import json
 import requests
-import modules.getProducto as gP
+import modules.getPedido as gP
 from tabulate import tabulate
 import modules.postProducto as pstP
 
 
 
-def updateProducto(id):
-    data = gP.DeleteProductoID(id)
+def updatePedido(id):
+    data = gP.DeletePedidoID(id)
     if data is None:
             print(f"""
 
@@ -41,7 +41,7 @@ Seleccion incorrecta""")
         except ValueError as error:
             print(error)
     
-    peticion = requests.put(f"http://154.38.171.54:5008/productos/{id}", data=json.dumps(data[0], indent=4).encode("UTF-8"))
+    peticion = requests.put(f"http://154.38.171.54:5007/pedidos/{id}", data=json.dumps(data[0], indent=4).encode("UTF-8"))
     res = peticion.json()
     res["Mensaje"] = "Producto Modificado"
     return [res]

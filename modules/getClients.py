@@ -1,12 +1,12 @@
 from tabulate import tabulate
 import requests
+import os
+import json
 
 #json-server storage/cliente.json -b 1000
-
 def getAllDataClientes():
     try:
-        peticion =  requests.post("http://154.38.171.54:5001/cliente")
-        peticion.raise_for_status()
+        peticion =  requests.get("http://154.38.171.54:5001/cliente")
         data = peticion.json()
         return data
     except requests.RequestException as e:
@@ -16,6 +16,15 @@ def getAllDataClientes():
         print("Error al cargar JSON:", e)
         return [] 
 
+def search():
+    ClienteName = []
+    for val in getAllDataClientes():
+        CodigoName = {
+            "Codigo": val.get("codigo_cliente"),
+            "Nombre": val.get("nombre_cliente")
+        }
+        ClienteName.append(CodigoName)
+    return ClienteName
 
 def getAllClientesName():
     clienteName = list()
@@ -67,11 +76,16 @@ def getAllClientPaisRegionCiudad(pais, region=None , ciudad=None):
 
 
 def getAllClientsMismoFax(Fax):
-    ClientFax = list()
-    for val in getAllDataClientes():
-        if (val.get("fax") == Fax):
-            ClientFax.append(val)
-    return ClientFax
+        try:
+            peticion =  requests.post(f"http://154.38.171.54:5001/cliente?{Fax}")
+            data = peticion.json()
+            return data
+        except requests.RequestException as e:
+            print("Error en la solicitud HTTP:", e)
+            return []
+        except ValueError as e:
+            print("Error al cargar JSON:", e)
+            return [] 
 
 def getAllClientsMismoCodigo_empleado_rep_ventas(Codigo):
     CodigoEmpleado = list()
@@ -111,6 +125,7 @@ def getAllNombresSpain():
 
 def menu():
     while True:
+        os.system("clear")
         print('''
           
     ____                        __              __        __                   ___            __           
@@ -119,7 +134,7 @@ def menu():
  / _, _/  __/ /_/ / /_/ / /  / /_/  __/  / /_/ /  __/  / / /_/ (__  )  / /__/ / /  __/ / / / /_/  __(__  ) 
 /_/ |_|\___/ .___/\____/_/   \__/\___/   \__,_/\___/  /_/\____/____/   \___/_/_/\___/_/ /_/\__/\___/____/  
           /_/                                                                                              
-
+            0. Atras
             1. Obtener todos los clientes (codigo y nombre)
             2. Obtener un cliente por el codigo (codigo y nombre)
             3. Obtener toda la indormacion de un cliente segun su limite de credito y ciudad que pertenece (ejem: 1500.0 , Fuenlabrada)
@@ -136,7 +151,8 @@ def menu():
            ''')
         opcion = int(input("selecione una de las opciones: "))
         if(opcion == 1):
-            print(tabulate(getAllClientesName(), headers="keys", tablefmt="github"))
+            print(tabulate(search(), headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
         elif(opcion == 2):
             codigo = int(input("Dame el codigo del cliente: "))
             print(tabulate(getOneClientCodigo(codigo), headers="keys", tablefmt="github"))
@@ -167,7 +183,7 @@ def menu():
             print(tabulate(getAllNombresSpain()))
         elif(opcion == 11):
             exit()
-        elif(opcion == 12):
+        elif(opcion == 0):
             break
         
         

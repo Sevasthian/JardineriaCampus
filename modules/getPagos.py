@@ -5,9 +5,16 @@ import requests
 import os
 #json-server storage/pago.json -b 5001
 def dataPagos():
-    peticion = requests.get("http://172.16.104.22:5005")
-    data = peticion.json()
-    return data
+    try:
+        peticion =  requests.get("http://154.38.171.54:5006/pagos")
+        data = peticion.json()
+        return data
+    except requests.RequestException as e:
+        print("Error en la solicitud HTTP:", e)
+        return []
+    except ValueError as e:
+        print("Error al cargar JSON:", e)
+        return []
 
 #json-server storage/cliente.json -b 5002
 def dataClientes():

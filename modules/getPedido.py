@@ -2,9 +2,26 @@
 from tabulate import tabulate
 import requests
 def getAllData():
-    peticion = requests.get("")
-    data = peticion.json()
-    return data
+    try:
+        peticion =  requests.get("http://154.38.171.54:5007/pedidos")
+        data = peticion.json()
+        return data
+    except requests.RequestException as e:
+        print("Error en la solicitud HTTP:", e)
+        return []
+    except ValueError as e:
+        print("Error al cargar JSON:", e)
+        return []
+def DeletePedidoID(id):
+    try:
+        peticion = requests.get(f"http://154.38.171.54:5007/pedidos/{id}")
+        return [peticion.json()] if peticion.ok else []
+    except requests.RequestException as e:
+        print("Error en la solicitud HTTP:", e)
+        return []
+    except ValueError as e:
+        print("Error al cargar JSON:", e)
+        return []
 
 def getAllEstadosPedido():
     pedidoEstado = []
