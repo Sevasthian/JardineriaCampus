@@ -293,6 +293,7 @@ def menuPedido():
                     print(error)          
 def menuProducto():
     while True:
+        #os.system("clear")
         print('''
        
     ____  _                            _     __                    __   
@@ -334,11 +335,9 @@ def menuProducto():
 
                       
         except ValueError as error:
-              input("Oprima enter para continuar con el programa")
-              print(error)
+              input("Oprima enter para continuar con el programa", error)
         except KeyboardInterrupt as error:
-              input("Oprima enter para continuar con el programa")
-              print(error)
+              input("Oprima enter para continuar con el programa",error)
 
 
 if(__name__ == "__main__"):
