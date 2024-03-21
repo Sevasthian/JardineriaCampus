@@ -44,29 +44,28 @@ def getProductoCodigo(codigo):
         if val.get("codigo_producto")  == codigo:
             return [val] 
     
-
 def getAllStocksPriceGama(gama, stock):
-    condiciones = []
+    condiciones = list()
     for val in getAllData():
-        if(val.get("gama") == gama and val.get("precio_venta") >= stock):
+        if((val.get("gama") == gama) and (val.get("cantidadEnStock") >= stock)):
             condiciones.append(val)
+            
     def price(val):
         return val.get("precio_venta")
-    condiciones.sort(key = price ,reverse = True)
+    condiciones.sort(key=price, reverse = True)
     for i, val in enumerate(condiciones):
-        if(condiciones[i].get("descripcion")):
-            condiciones[i] = {
+        condiciones[i] = {
                 "codigo": val.get("codigo_producto"),
-                "venta" : val.get("precio_venta"),
-                "nombre" : val.get("nombre"),
-                "gama" : val.get("gama"),
-                "dimenciones" : val.get("dimensiones"),
-                "proveedor" : val.get("proveedor"),
-                "descripcion" :f'''{val.get("descripcion")[:5]}...'''if condiciones[i].get("descripcion") else None ,
-                "stock" : val.get("cantidad_en_stock"),
-                "base" : val.get("precio_provedor"),
+                "venta": val.get("precio_venta"),
+                "nombre": val.get("nombre"),
+                "gama": val.get("gama"),
+                "dimensiones": val.get("dimensiones"),
+                "proveedor": val.get("proveedor"),
+                "descripcion": f'{val.get("descripcion")[:5]}...' if condiciones[i].get("descripcion") else None,
+                "stock": val.get("cantidadEnStock"),
+                "base": val.get("precio_proveedor")
             }
-    return condiciones
+    return condiciones  
 def menu():
     while True:
         os.system("clear")
@@ -75,7 +74,7 @@ def menu():
 
     ____                        __                   __                             __           __      
    / __ \___  ____  ____  _____/ /____  _____   ____/ /__     ____  _________  ____/ /_  _______/ /_____ 
-  / /_/ / _ \/ __ \/ __ \/ ___/ __/ _ \/ ___/  / __  / _ \   / __ \/ ___/ __ \/ __  / / / / ___/ __/ __ \
+  / /_/ / _ \/ __ \/ __ \/ ___/ __/ _ \/ ___/  / __  / _ \   / __ \/ ___/ __ \/ __  / / / / ___/ __/ __ sevas
  / _, _/  __/ /_/ / /_/ / /  / /_/  __(__  )  / /_/ /  __/  / /_/ / /  / /_/ / /_/ / /_/ / /__/ /_/ /_/ /
 /_/ |_|\___/ .___/\____/_/   \__/\___/____/   \__,_/\___/  / .___/_/   \____/\__,_/\__,_/\___/\__/\____/ 
           /_/                                             /_/                                            
@@ -86,13 +85,20 @@ def menu():
             2. Regrese al menu principal   
             3. Salir del programa  
            ''')
-        opcio = int(input("Escribe una opcion: "))
-        if (opcio == 1):
-            gama = input("Escriba la categoria deceada: ")
-            stock = int(input("Ingrse las unidades: "))
-            print(tabulate(getAllStocksPriceGama(gama, stock)))
-        elif(opcio == 2):
-            break
-        elif(opcio == 3):
-            exit()
-        
+        try:
+            opcio = int(input("Escribe una opcion: "))
+            if (opcio == 1):
+                gama = input("Escriba la categoria deceada: ")
+                stock = int(input("Ingrese las unidades que tiene el precio de venta: "))
+                print(tabulate(getAllStocksPriceGama(gama, stock)))
+                input("Oprima una tecla para continuar...")
+            elif(opcio == 2):
+                break
+            elif(opcio == 3):
+                exit()
+        except ValueError as error:
+            print(error)
+            input("Oprima enter para volver a cargar el programa")
+        except KeyboardInterrupt as error:
+              print(error)
+              input("Oprima alguna tecla para continuar con el programa")

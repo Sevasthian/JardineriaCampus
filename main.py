@@ -20,6 +20,10 @@ import modules.updateProducto as upPro
 import os
 import modules.updatePedido as upPed
 import modules.updateCliente as upCli
+import modules.updatePago as upPa
+import modules.updateOficina as upOfi
+import modules.updateGama as upGam
+import modules.updateEmpleado as upEmp
 
 # def menu():
 #     print('''
@@ -77,7 +81,7 @@ def menuCliente():
                 elif opciones == 1:
                         cliente.menu()
                 elif opciones == 2:
-                        pstCli.menu()
+                        pstCli.postClientes()
                 elif opciones == 5:
                         exit()
                 elif opciones == 4:
@@ -110,9 +114,11 @@ def menuEmpleado():
 /_/ /_/ /_/\___/_/ /_/\__,_/   \__,_/\___/   \___/_/ /_/ /_/ .___/_/\___/\__,_/\__,_/\____/____/  
                                                           /_/                                     
         0. Atras
-              1.Reportes de los empleados
-              2.Guardar alguna empleado
-        3. Cerrar el programa
+        1. Reportes de los empleados
+        2. Guardar alguna empleado
+        3. Actualizar algun empleado
+        4. Eliminar algun empleado
+        5. Cerrar el programa
 
 ''')
         try:
@@ -124,7 +130,9 @@ def menuEmpleado():
                 elif opciones == 2:
                         PEmp.menu()
                 elif opciones == 3:
-                      exit()
+                        upEmp.updateEmpleado()
+                elif opciones == 4:
+                        PEmp.deleteEmpleado()
         except ValueError as error:
               input("Oprima enter para continuar con el programa")
               print(error)
@@ -151,7 +159,9 @@ def menuGamas():
                   0. atras
                   1. Reportes de las gamas
                   2. Guardar alguna gama
-                  3.Cerrar el Programa''')
+                  3. Actualizar las gamas
+                  4. Eliminar una gama
+                  5. Cerrar el Programa''')
             try:
                 opciones = int(input("Ingrese el numero de la opcion deceada: "))
                 if opciones == 0:
@@ -161,7 +171,11 @@ def menuGamas():
                 elif opciones == 2:
                         pstGam.menu()
                 elif opciones == 3:
-                      exit()
+                        upGam.updateGama()
+                elif opciones ==  4:
+                        pstGam.deleteGama()
+                elif opciones == 5:
+                        exit()
             except ValueError as error:
               input("Oprima enter para continuar con el programa")
               print(error)
@@ -188,7 +202,9 @@ def menuOficina():
                   0.Atras
                   1.Reportes de las gamas
                   2.Guardar alguna gama
-                  3.Cerrar el programa''')
+                  3.Actualizar una oficina
+                  4.Eliminar una oficina
+                  5.Cerrar el programa''')
             try:
                 opciones = int(input("Ingrese el numero de la opcion deceada: "))
                 if opciones == 0:
@@ -198,7 +214,12 @@ def menuOficina():
                 elif opciones == 2:
                         pstOfi.menu()
                 elif opciones == 3:
-                      exit()
+                        upOfi.updateOficina()
+                elif opciones == 4:
+                        pstOfi.deleteOficina()
+                elif opciones == 5:
+                        exit()
+                        
             except ValueError as error:
               input("Oprima enter para continuar con el programa")
               print(error)
@@ -225,17 +246,26 @@ def menuPagos():
                   0. Atras
                   1.Reportes de los pagos
                   2.Guardas algun pago
-                  3.Cerrar el programa''')
+                  3.Actualizar algun pago
+                  4.Eliminar algun pago
+                  5.Cerrar el programa''')
             try:
-                      opciones = int(input("Ingrese el numero de la opcion deceada: "))
-                      if opciones == 0:
-                              break
-                      elif opciones == 1:
-                              pago.menu()
-                      elif opciones == 2:
-                              pstpag.menu()
-                      elif opciones == 3:
-                            exit()
+                opciones = int(input("Ingrese el numero de la opcion deceada: "))
+                if opciones == 0:
+                        break
+                elif opciones == 1:
+                        pago.menu()
+                elif opciones == 2:
+                        pstpag.menu()
+                elif opciones == 3:
+                        upPa.updatePago()
+                elif opciones == 4:
+                        pstpag.detelePago()
+                elif opciones ==  5:
+                        exit()
+
+                        
+                            
             except ValueError as error:
                     input("Oprima enter para continuar con el programa")
                     print(error)
@@ -293,7 +323,7 @@ def menuPedido():
                     print(error)          
 def menuProducto():
     while True:
-        #os.system("clear")
+        os.system("clear")
         print('''
        
     ____  _                            _     __                    __   
@@ -328,8 +358,10 @@ def menuProducto():
                       exit()
                 elif(opcion == 3):
                         print(tabulate(upPro.updateProducto(idProducto), headers="keys", tablefmt="github"))
+                        input("Presiona Enter para continuar...")
                 elif(opcion == 4):
                         print(tabulate(postpro.deleteProducto(idProducto), headers="keys", tablefmt="github"))
+                        input("Precione una tecla para Continuar")
                 idProducto = input("Ingrese el id del producto: ")
         
 

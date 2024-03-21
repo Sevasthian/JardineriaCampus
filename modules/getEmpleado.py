@@ -13,6 +13,27 @@ def getAllDataEmpleados():
     except ValueError as e:
         print("Error al cargar JSON:", e)
         return [] 
+def DeleteEmpleadosID(id):
+    try:
+        peticion = requests.get(f"http://154.38.171.54:5003/empleados/{id}")
+        return [peticion.json()] if peticion.ok else []
+    except requests.RequestException as e:
+        print("Error en la solicitud HTTP:", e)
+        return []
+    except ValueError as e:
+        print("Error al cargar JSON:", e)
+        return []
+    
+def getEmpleadosCodigo(codigo):
+    try:
+        peticion = requests.get(f"http://154.38.171.54:5003/empleados/{codigo}")
+        return [peticion.json()] if peticion.ok else []
+    except requests.RequestException as e:
+        print("Error en la solicitud HTTP:", e)
+        return []
+    except ValueError as e:
+        print("Error al cargar JSON:", e)
+        return []
     
 def getAllNombreApellidoEmailJefe(puesto):
         try:
@@ -77,10 +98,13 @@ def menu():
         if (opcion == 1):
             codigo = int(input("Escriba el codigo del empleado que necesita: "))
             print(tabulate(getAllNombreApellidoEmailJefe(codigo)))
+            input("Presione una tecla para continuar...")
         elif (opcion == 2):
             print(tabulate(getAllNombreDelPuestoApellidosEmailJefe()))
+            input("Presione una tecla para continuar...")
         elif (opcion == 3):
             print(tabulate(getAllNombreApellidosPuestoNoRepVentas()))
+            input("Presione una tecla para continuar...")
         elif(opcion == 4):
             exit()
         elif(opcion == 0):

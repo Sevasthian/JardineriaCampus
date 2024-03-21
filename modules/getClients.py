@@ -15,7 +15,28 @@ def getAllDataClientes():
     except ValueError as e:
         print("Error al cargar JSON:", e)
         return [] 
-
+def DeleteClienteID(id):
+    try:
+        peticion = requests.get(f"http://154.38.171.54:5001/cliente/{id}")
+        return [peticion.json()] if peticion.ok else []
+    except requests.RequestException as e:
+        print("Error en la solicitud HTTP:", e)
+        return []
+    except ValueError as e:
+        print("Error al cargar JSON:", e)
+        return []
+    
+def getClienteCodigo(codigo):
+    try:
+        peticion = requests.get(f"http://154.38.171.54:5001/cliente/{codigo}")
+        return [peticion.json()] if peticion.ok else []
+    except requests.RequestException as e:
+        print("Error en la solicitud HTTP:", e)
+        return []
+    except ValueError as e:
+        print("Error al cargar JSON:", e)
+        return []
+    
 def search():
     ClienteName = []
     for val in getAllDataClientes():
@@ -152,35 +173,44 @@ def menu():
         opcion = int(input("selecione una de las opciones: "))
         if(opcion == 1):
             print(tabulate(search(), headers="keys", tablefmt="rounded_grid"))
-            input(f"Escriba una tecla para continuar: ")
+            input("Escriba una tecla para continuar")
         elif(opcion == 2):
             codigo = int(input("Dame el codigo del cliente: "))
             print(tabulate(getOneClientCodigo(codigo), headers="keys", tablefmt="github"))
+            input("Escriba una tecla para continuar")
         elif(opcion == 3):
             limiteDeCredito = float(input("Escribe un limite de credito: "))
             ciudad = input("Escriba una ciudad que corresponda con ese credito: ")
             data = getAllClientCreditCiudad(limiteDeCredito,ciudad)
             print(tabulate(data ,headers = "Head", tablefmt ="gird"))
+            input("Escriba una tecla para continuar")
         elif(opcion == 4):
             pais = input("Escriba el pais: ")
             Region = input("Escriba la region: ")
             Ciudad = input("Escriba la ciudad: ")
             print(tabulate(getAllClientPaisRegionCiudad(pais, Region, Ciudad),headers = 'firstrow', tablefmt = 'gird'))
+            input("Escriba una tecla para continuar")
         elif(opcion == 5):
             fax = input("Escriba el codigo fax: ")
             print(tabulate(getAllClientsMismoFax(fax)))
+            input("Escriba una tecla para continuar")
         elif(opcion == 6):
             codigo = int(input("Escriba el codigo de un empleado de ventas: "))
             print(tabulate(getAllClientsMismoCodigo_empleado_rep_ventas(codigo)))
+            input("Escriba una tecla para continuar")
         elif(opcion == 7):
             print(tabulate(getAllClientsNombrePostal()))
+            input("Escriba una tecla para continuar")
         elif(opcion == 8):
             print(tabulate(getAllClientsLineaDirecciones()))
+            input("Escriba una tecla para continuar")
         elif(opcion == 9):
             apellido = input("Escriba el apellido del cliente: ")
             print(tabulate(getAllclientsApellidoContacto(apellido)))
+            input("Escriba una tecla para continuar")
         elif(opcion == 10):
             print(tabulate(getAllNombresSpain()))
+            input("Escriba una tecla para continuar")
         elif(opcion == 11):
             exit()
         elif(opcion == 0):

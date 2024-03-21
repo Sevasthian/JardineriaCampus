@@ -14,7 +14,7 @@ def getAllData():
         return []
 def DeletePedidoID(id):
     try:
-        peticion = requests.get(f"http://154.38.171.54:5007/pedidos/{id}")
+        peticion = requests.get(f"http://154.38.171.54:5008/productos/{id}")
         return [peticion.json()] if peticion.ok else []
     except requests.RequestException as e:
         print("Error en la solicitud HTTP:", e)
@@ -22,6 +22,22 @@ def DeletePedidoID(id):
     except ValueError as e:
         print("Error al cargar JSON:", e)
         return []
+    
+def getPedidoCodigo(codigo):
+    try:
+        peticion = requests.get(f"http://154.38.171.54:5008/productos/{codigo}")
+        return [peticion.json()] if peticion.ok else []
+    except requests.RequestException as e:
+        print("Error en la solicitud HTTP:", e)
+        return []
+    except ValueError as e:
+        print("Error al cargar JSON:", e)
+        return []
+def getProductoCodigo(codigo):
+    for val in getAllData():
+        if val.get("codigo_producto")  == codigo:
+            return [val] 
+    
 
 def getAllEstadosPedido():
     pedidoEstado = []
